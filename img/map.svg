@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="1000" height="750" role="img" aria-label="Map of Dunkley Square, Gardens, Cape Town, showing Maria's on Barnet Street.">
+  <title>Maria's Greek Café — 31 Barnet Street, Dunkley Square, Gardens, Cape Town</title>
+  <defs><clipPath id="f"><rect width="1000" height="750"/></clipPath></defs>
+  <rect width="1000" height="750" fill="#F4F5ED"/>
+  <g clip-path="url(#f)">
+    <g fill="none" stroke="#2B5CC4" stroke-opacity="0.18" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M221.1 624.1 L338.6 486.0 L456.5 350.4 L676.6 89.1 L910.2 -184.8" stroke-width="11"/>
+      <path d="M675.7 398.5 L709.2 359.8 L830.6 219.6 L835.7 213.2 L1065.8 -52.2 L1218.4 -214.7" stroke-width="11"/>
+      <path d="M47.9 482.0 L116.6 398.6 L282.7 199.5" stroke-width="15"/>
+      <path d="M203.6 609.2 L134.0 792.4 L16.7 1104.5 L18.9 1117.6 L27.5 1126.6 L74.2 1143.7 L90.6 1144.6 L103.9 1136.9 L140.6 1043.7" stroke-width="11"/>
+      <path d="M456.5 350.4 L447.1 342.3 L298.4 213.2 L282.7 199.5" stroke-width="11"/>
+      <path d="M1051.2 234.5 L1010.4 345.2 L986.7 408.0 L945.3 517.1 L893.2 658.6 L849.6 770.1 L802.6 899.2 L787.4 938.8 L771.6 980.1 L697.4 1179.9" stroke-width="15"/>
+    </g>
+    <g fill="#2B5CC4" fill-opacity="0.72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" text-anchor="middle">
+      <text x="579.5" y="230.7" transform="rotate(-49.9 579.5 230.7)">Barnet St</text>
+      <text x="782.7" y="300.8" transform="rotate(-49.1 782.7 300.8)">Wandel St</text>
+      <text x="212.7" y="309.9" transform="rotate(-50.2 212.7 309.9)">Hatfield St</text>
+      <text x="279.4" y="219.2" transform="rotate(41.0 279.4 219.2)">Dunkley St</text>
+      <text x="935.2" y="593.7" transform="rotate(-69.8 935.2 593.7)">Hope St</text>
+    </g>
+    <g>
+      <circle cx="462.4" cy="343.3" r="30" fill="#F4F5ED" fill-opacity="0.85" stroke="#2B5CC4" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="462.4" cy="343.3" r="8" fill="#2B5CC4"/>
+      <text x="462.4" y="297.3" fill="#2B5CC4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22" text-anchor="middle">Maria&#8217;s</text>
+      <text x="462.4" y="403.3" fill="#2B5CC4" fill-opacity="0.72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" text-anchor="middle">Dunkley Square</text>
+    </g>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#2B5CC4" fill-opacity="0.72">
+      <path d="M28 720 L28 712 M28 716 L205.5 716 M205.5 720 L205.5 712" stroke="#2B5CC4" stroke-opacity="0.45" fill="none" stroke-width="1.5"/>
+      <text x="28" y="704">50 m</text>
+      <text x="972" y="720" text-anchor="end">Map data © OpenStreetMap contributors, ODbL</text>
+    </g>
+  </g>
+</svg>
