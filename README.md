@@ -16,10 +16,19 @@ img/            photographs, the map, the social card — see img/README.md
 
 ## Putting it online
 
-Upload the three items above, keeping the folder structure, to any static host:
-Netlify, Cloudflare Pages, GitHub Pages, Vercel, or ordinary shared hosting over
-FTP. There is nothing to compile. To preview it on your own machine, open
-`index.html` in a browser, or from this folder run:
+The site is live on GitHub Pages at **https://warhol123.github.io/marias/**.
+
+`.github/workflows/pages.yml` redeploys it on every push to `main`. There is no
+build step: the workflow uploads the repository root as-is and hands it to Pages,
+which takes about a minute. To see the state of the last deploy, open the Actions
+tab in the repository.
+
+Nothing about the site is tied to GitHub. It is three items with no build step, so
+it will run unchanged on Netlify, Cloudflare Pages, Vercel or ordinary shared
+hosting over FTP if you ever want to move it.
+
+To preview it on your own machine, open `index.html` in a browser, or from this
+folder run:
 
     npx http-server . -p 8080
 
@@ -27,10 +36,17 @@ FTP. There is nothing to compile. To preview it on your own machine, open
 
 Three things carry placeholder values. Search `index.html` for each.
 
-1. **The domain.** `mariasgreekcafe.co.za` appears in the Open Graph tags, the
-   Twitter tags, `rel="canonical"` and the JSON-LD block. Replace every instance
-   with the real domain. Social-media previews need absolute URLs, which is why
-   they cannot be left relative.
+1. **The domain.** Six absolute URLs currently point at the GitHub Pages
+   address, `https://warhol123.github.io/marias/`: the Open Graph tags, the
+   Twitter tags, `rel="canonical"` and two fields in the JSON-LD block. They have
+   to be absolute, because social-media previews cannot resolve a relative path,
+   which is why they are not simply `/img/og.jpg`. The day a real domain goes
+   live, replace all six:
+
+       sed -i 's|https://warhol123.github.io/marias/|https://mariasgreekcafe.co.za/|g' index.html
+
+   Leaving `canonical` pointing at the old address after a move tells Google the
+   new site is a copy of the old one, so this is worth doing on the same day.
 2. **The Facebook URL.** Marked with a `TODO` comment in the footer. Facebook
    blocks automated checks, so it was never verified. Open the restaurant's page,
    copy the address from the browser bar, paste it in.
