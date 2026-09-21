@@ -120,42 +120,59 @@ Two roles, no third font.
 
 | Role | Font | Used for |
 |---|---|---|
-| Display | Italianno, plus four more script faces in the wordmark | The `h1`, the section headings, the footer mark |
+| The mark | Caveat 700 | The `h1` wordmark and the footer mark |
+| Headings | Italianno | The three section headings |
 | Everything else | DM Mono 300 / 400 / 500 | Navigation, buttons, paragraphs, the food list, the table, labels, fine print |
 
-**The wordmark.** The `h1` cycles through five handwritten renderings of
-"Maria's": Italianno, Mrs Saint Delafield, Pinyon Script, Style Script and Mr De
-Haviland. One crossfades to the next every 2600ms over 700ms, forever.
+A painted mark against a copperplate heading against a mono body is the
+arrangement the reference site uses too: its logo is a hand-painted animation,
+its headings are a flowing script, its body is a mono.
 
-The five faces have very different x-heights, widths and baselines, so each
-variant carries its own `font-size` multiplier and its own two-axis translation,
-in `styles.css`:
+**The wordmark.** The `h1` is the restaurant's name written six times by the
+same hand. One replaces the next every 520ms with a hard cut, no fade, forever.
+The flicker is the point: it should read as somebody redrawing the word, not as
+a slideshow.
 
-```css
-.v3 { font-family: 'Pinyon Script'; font-size: calc(var(--script) * 1.57); transform: translateY(.267em); text-indent: -.070em; }
-```
-
-Those numbers are not guesses. Each face was rendered and measured, and the
-multipliers were set so all five words occupy the same optical box: ink widths
-land within 8% of each other, and every variant's baseline sits at exactly
-1.58 × `--script` from the top of the reserved box. The corrections are in `em`,
-so they hold at every viewport size without a second set of numbers. The effect
-should read as one name written five times by hand. If you change a
-`font-size` multiplier, re-measure rather than eyeball the translation.
-
-The `h1`'s height is reserved explicitly (`calc(var(--script) * 2.06)`), so
-nothing on the page moves as the cycle runs. Screen readers get the name once,
-from `aria-label` on the `h1`; the five spans are `aria-hidden`. With JavaScript
-off, or with "reduce motion" set in the operating system, the first variant simply
-sits there and nothing cycles.
-
-One master value drives the whole wordmark:
+Three things create the variation, and they are all generated, not hand-tuned.
+Per pass: each letter leans a little (up to 2.5 degrees), rides up or down, and
+changes size by a few percent; the whole word sits at its own slight angle; and
+an SVG noise filter breaks the edges up with its own seed, so the ink never
+lands twice the same. The numbers live in `styles.css` as one block per hand:
 
 ```css
---script: clamp(3.75rem, 9vw, 7rem);   /* 60px on a phone -> 120px on a desktop */
+.h3 { --tilt: 0.48deg; filter: url(#ink3); }
+.h3 .g1 { transform: translate(0.008em, 0.04em) rotate(-3.27deg) scale(1.031); }
 ```
 
-Change that one line to resize all five together.
+`.h3` is the third hand, `.g1` the first letter. Every value is in `em` or
+degrees, so the whole thing scales with the type and needs no second set of
+numbers for phones.
+
+The jitter is deliberately gentle. An earlier, wilder version made the letters
+collide and the name read as "Morio's", which is worse than no effect at all.
+If you increase the rotation or the horizontal offsets, check the result at a
+large size before shipping: Caveat's letters already overhang their boxes, and
+`letter-spacing: .055em` on `.hand` is there to buy back the fit that wrapping
+each letter in its own box loses.
+
+To add or remove a hand, copy a block, change the numbers and the filter seed,
+and add or remove the matching `<span class="hand h7">…</span>` in the `h1`.
+The JavaScript counts the elements, so nothing else needs changing.
+
+The `h1`'s height is reserved (`calc(var(--script) * 2.02)`), so nothing on the
+page moves as the hands cycle. Screen readers get the name once, from
+`aria-label` on the `h1`; the six spans are `aria-hidden`. With JavaScript off,
+or with "reduce motion" set in the operating system, the first hand simply sits
+there and nothing cycles. Below 640px the noise filters are switched off: they
+are invisible at that size and they are the expensive part.
+
+One master value drives the whole mark:
+
+```css
+--script: clamp(3.75rem, 9vw, 7.5rem);   /* 60px on a phone -> 120px on a desktop */
+```
+
+Change that one line to resize it.
 
 ### Colour and contrast
 
@@ -211,15 +228,15 @@ so it never changes width. On a phone it just dials.
 
 ### Fonts and licensing
 
-All six faces are free and served from Google Fonts. Nothing is downloaded into
-this repository, so there is nothing to keep licence files for.
+All three faces are free and served from Google Fonts. Nothing is downloaded
+into this repository, so there is nothing to keep licence files for.
 
-The two faces that paint first, DM Mono 400 and Italianno, are preloaded by URL
-in `<head>`. Those URLs contain a version number (`v16`, `v18`). When Google
+The two faces that paint first, Caveat 700 and DM Mono 400, are preloaded by URL
+in `<head>`. Those URLs contain a version number (`v23`, `v16`). When Google
 bumps a version the preload stops matching and the browser quietly downloads the
 new file instead — the page still works and looks right, it just loses a little
 speed. Worth re-checking once a year: load
-`https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Italianno&display=swap`
+`https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Mono:wght@300;400;500&display=swap`
 in a browser and copy the current URLs for the `U+0000-00FF` latin blocks. Every
 other face is `font-display: swap`.
 
@@ -227,9 +244,12 @@ other face is `font-display: swap`.
 commercial faces: **Baraquiel** (Scriptorium, via MyFonts) for the script and
 **ABC Laica Mono** (Dinamo) for the body. If the restaurant licenses them,
 swapping is a `@font-face` change and a variable rename: self-host the licensed
-files, declare them, and change the font stacks in `styles.css`. The script
-variants would need re-measuring, since the corrections are specific to each
-face's metrics. No font file belonging to another restaurant's site was
+files, declare them, and change the font stacks in `styles.css`. Baraquiel would
+replace Italianno on the section headings. The wordmark is a separate decision:
+it is a painted mark now, and the closest thing to it in the reference site is
+not a font at all but a nine-frame animation of real brush lettering. If the
+restaurant ever commissions someone to paint the name by hand, those drawings
+would replace the six generated hands and the effect would only get better. No font file belonging to another restaurant's site was
 downloaded or referenced for this build, and none should be.
 
 ### Layout

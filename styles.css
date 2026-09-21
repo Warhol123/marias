@@ -133,49 +133,110 @@ a { color: inherit; }
   text-align: center;
 }
 
-/* Five hands, one name. Each span is absolutely stacked in a box whose
-   height is reserved, so nothing on the page moves as they cycle.
-   Baseline sits at 1.58 x --script from the top of the box for all five;
-   the per-variant translate corrects both baseline and optical centring. */
+/* One name, written six times by the same hand.
+   The six differ the way six real attempts differ: letters lean, ride up and
+   down and change size a touch, the whole word sits at a slightly different
+   angle, and a noise filter breaks the edges up differently on each pass.
+   They cut, they do not fade. Height is reserved so nothing on the page moves. */
 .wordmark {
   position: relative;
-  height: calc(var(--script) * 2.06);
+  height: calc(var(--script) * 2.02);
   margin-bottom: clamp(1.25rem, 2.5vw, 2.25rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0;
 }
-.wordmark span {
+.hand {
   position: absolute; inset: 0;
   display: block;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: calc(var(--script) * 1.95);
   line-height: 1;
   white-space: nowrap;
+  text-align: center;
+  letter-spacing: .055em;        /* inline-block letters lose the font's own fit */
+  text-indent: -.09em;           /* centres the ink; the word does not do it alone */
   color: var(--ink);
+  transform: translateY(var(--baseline)) rotate(var(--tilt, 0deg));
   opacity: 0;
-  transition: opacity .7s ease;
 }
-.wordmark span.is-on { opacity: 1; }
-/* No JS, or reduced motion: the first hand is simply always there. */
-.wordmark .v1 { opacity: 1; }
-.js .wordmark .v1 { opacity: 0; }
-.js .wordmark .v1.is-on { opacity: 1; }
+.wordmark { --baseline: .06em; }
+.hand > span { display: inline-block; }
+.hand.is-on { opacity: 1; }
 
-/* Per-variant corrections. translateY puts every baseline in the same place;
-   text-indent centres the ink, which several of these faces do not do on their
-   own (Mr De Haviland's M carries a long entry stroke to the left of its origin).
-   text-indent rather than translateX on purpose: it shifts the glyphs inside the
-   box instead of shifting the box, which would push the page sideways at some
-   widths. With text-align: center the shift is half the indent, so these are
-   double the measured correction. */
-.v1 { font-family: 'Italianno', cursive;            font-size: calc(var(--script) * 1.92); transform: translateY(.146em); text-indent: -.020em; }
-.v2 { font-family: 'Mrs Saint Delafield', cursive;  font-size: calc(var(--script) * 2.00); transform: translateY(.150em); text-indent: -.136em; }
-.v3 { font-family: 'Pinyon Script', cursive;        font-size: calc(var(--script) * 1.57); transform: translateY(.267em); text-indent: -.070em; }
-.v4 { font-family: 'Style Script', cursive;         font-size: calc(var(--script) * 1.46); transform: translateY(.342em); text-indent: -.042em; }
-.v5 { font-family: 'Mr De Haviland', cursive;       font-size: calc(var(--script) * 2.03); transform: translateY(.064em); text-indent:  .280em; }
+/* No JS, or reduced motion: the first hand is simply always there. */
+.hand.h1 { opacity: 1; }
+.js .hand.h1 { opacity: 0; }
+.js .hand.h1.is-on { opacity: 1; }
+
+.ink-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.h1 { --tilt: -0.6deg; filter: url(#ink1); }
+.h1 .g1 { transform: translate(-0.001em, 0.04em) rotate(-1.12deg) scale(0.991); }
+.h1 .g2 { transform: translate(-0.006em, 0.032em) rotate(0.99deg) scale(0.967); }
+.h1 .g3 { transform: translate(-0.002em, 0.01em) rotate(1.94deg) scale(1.04); }
+.h1 .g4 { transform: translate(-0.008em, -0.037em) rotate(-1.12deg) scale(1.009); }
+.h1 .g5 { transform: translate(0.006em, 0.003em) rotate(-1.62deg) scale(0.971); }
+.h1 .g6 { transform: translate(-0.002em, -0.035em) rotate(-0.88deg) scale(0.999); }
+.h1 .g7 { transform: translate(0.006em, 0.001em) rotate(1.85deg) scale(0.959); }
+
+.h2 { --tilt: -0.06deg; filter: url(#ink2); }
+.h2 .g1 { transform: translate(-0.007em, 0.037em) rotate(0.77deg) scale(1.007); }
+.h2 .g2 { transform: translate(0.002em, -0.042em) rotate(1.67deg) scale(0.975); }
+.h2 .g3 { transform: translate(0em, 0.035em) rotate(2.01deg) scale(1.047); }
+.h2 .g4 { transform: translate(0.007em, -0.03em) rotate(0.85deg) scale(1.047); }
+.h2 .g5 { transform: translate(0.003em, -0.021em) rotate(1.54deg) scale(1.009); }
+.h2 .g6 { transform: translate(-0.004em, 0.035em) rotate(0.08deg) scale(1.005); }
+.h2 .g7 { transform: translate(0.001em, -0.038em) rotate(0.34deg) scale(1.002); }
+
+.h3 { --tilt: 0.48deg; filter: url(#ink3); }
+.h3 .g1 { transform: translate(0.003em, 0.034em) rotate(-2.34deg) scale(1.024); }
+.h3 .g2 { transform: translate(-0.005em, -0.032em) rotate(2.36deg) scale(0.983); }
+.h3 .g3 { transform: translate(0.002em, -0.025em) rotate(2.09deg) scale(0.953); }
+.h3 .g4 { transform: translate(0.006em, -0.024em) rotate(-2.18deg) scale(0.984); }
+.h3 .g5 { transform: translate(0.001em, 0.04em) rotate(-0.3deg) scale(1.048); }
+.h3 .g6 { transform: translate(-0.006em, 0.019em) rotate(1.04deg) scale(1.011); }
+.h3 .g7 { transform: translate(-0.005em, 0.009em) rotate(-1.18deg) scale(1.045); }
+
+.h4 { --tilt: 1.03deg; filter: url(#ink4); }
+.h4 .g1 { transform: translate(-0.003em, 0.03em) rotate(-0.44deg) scale(1.04); }
+.h4 .g2 { transform: translate(0.003em, -0.021em) rotate(-1.95deg) scale(0.992); }
+.h4 .g3 { transform: translate(0.004em, -0.001em) rotate(2.16deg) scale(0.959); }
+.h4 .g4 { transform: translate(0.005em, -0.018em) rotate(-0.21deg) scale(1.022); }
+.h4 .g5 { transform: translate(-0.002em, 0.016em) rotate(-2.14deg) scale(0.986); }
+.h4 .g6 { transform: translate(-0.007em, 0.004em) rotate(2deg) scale(1.017); }
+.h4 .g7 { transform: translate(0.005em, -0.03em) rotate(2.31deg) scale(0.988); }
+
+.h5 { --tilt: -0.83deg; filter: url(#ink5); }
+.h5 .g1 { transform: translate(0.007em, 0.027em) rotate(1.45deg) scale(0.957); }
+.h5 .g2 { transform: translate(-0.005em, -0.011em) rotate(-1.26deg) scale(1); }
+.h5 .g3 { transform: translate(0.006em, 0.024em) rotate(2.23deg) scale(0.965); }
+.h5 .g4 { transform: translate(0.004em, -0.011em) rotate(1.75deg) scale(0.959); }
+.h5 .g5 { transform: translate(-0.004em, -0.008em) rotate(1.01deg) scale(1.025); }
+.h5 .g6 { transform: translate(0.007em, -0.012em) rotate(-2.04deg) scale(1.023); }
+.h5 .g7 { transform: translate(0em, 0.016em) rotate(0.8deg) scale(1.032); }
+
+.h6 { --tilt: -0.29deg; filter: url(#ink6); }
+.h6 .g1 { transform: translate(0em, 0.023em) rotate(-1.66deg) scale(0.973); }
+.h6 .g2 { transform: translate(0.003em, 0em) rotate(-0.58deg) scale(1.008); }
+.h6 .g3 { transform: translate(-0.008em, -0.036em) rotate(2.31deg) scale(0.971); }
+.h6 .g4 { transform: translate(0.002em, -0.005em) rotate(-1.28deg) scale(0.997); }
+.h6 .g5 { transform: translate(-0.006em, -0.032em) rotate(-0.83deg) scale(0.963); }
+.h6 .g6 { transform: translate(0.005em, -0.027em) rotate(-1.08deg) scale(1.029); }
+.h6 .g7 { transform: translate(-0.006em, -0.023em) rotate(-0.71deg) scale(0.975); }
+
 
 .hero__sub {
   max-width: 520px;
   margin: 0 auto clamp(2rem, 4vw, 3rem);
   font-weight: 300;
+}
+
+/* The noise filter is the costly part and it is invisible at phone size, where
+   the mark is barely 280px wide. The per-letter jitter carries the effect on
+   its own there, so the filters come off. */
+@media (max-width: 640px) {
+  .hand { filter: none; }
 }
 
 /* ------------------------------------------------------------- 2 · bento */
@@ -329,8 +390,9 @@ section { padding-block: var(--section); }
   justify-content: space-between; gap: 1.5rem 2rem;
 }
 .foot__mark {
-  font-family: 'Mr De Haviland', cursive;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
   line-height: 1;
   letter-spacing: 0;
   color: var(--ink-soft);                        /* large text, AA at 3:1 */
@@ -347,8 +409,8 @@ section { padding-block: var(--section); }
 /* ------------------------------------------------------- reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
-  .wordmark span { transition: none; opacity: 0; }
-  .wordmark .v1,
-  .js .wordmark .v1 { opacity: 1; }
+  .hand { opacity: 0; }
+  .hand.h1,
+  .js .hand.h1 { opacity: 1; }
   .cell img, .bar, .btn__stack > span, .skip { transition: none; }
 }

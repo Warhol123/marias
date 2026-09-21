@@ -10,11 +10,11 @@
 <!-- Fonts. Two roles only: script display faces, and DM Mono for everything else. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- The two faces that paint first: DM Mono 400 and Italianno, latin subsets.
-     If Google bumps a font version these URLs go stale: see README. -->
+<!-- The two faces that paint first: Caveat 700 (the wordmark) and DM Mono 400,
+     latin subsets. If Google bumps a font version these URLs go stale: see README. -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjRV6eIWpYT5Kmgq3sw.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/dmmono/v16/aFTU7PB1QTsUX8KYthqQBK6PYK0.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/italianno/v18/dg4n_p3sv6gCJkwzT6RXiJwoYQAugw.woff2">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Italianno&family=Mr+De+Haviland&family=Mrs+Saint+Delafield&family=Pinyon+Script&family=Style+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Mono:wght@300;400;500&family=Italianno&display=swap">
 <link rel="stylesheet" href="styles.css">
 
 <!-- Social cards. These absolute URLs point at the current live address. When a
@@ -77,6 +77,38 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- One noise filter per hand. Same recipe, different seed, so the edges
+     break up differently on each pass: the ink never lands twice the same. -->
+<svg class="ink-defs" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <filter id="ink1" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ink2" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="36" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ink3" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="65" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ink4" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="94" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ink5" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="123" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ink6" x="-14%" y="-18%" width="128%" height="136%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="152" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+
 <header class="bar" id="bar">
   <div class="wrap bar__inner">
     <a class="btn" href="tel:+27214613333" aria-label="Reserve a table by phone on 021 461 3333">
@@ -92,12 +124,13 @@
 
   <!-- 1 · Hero ---------------------------------------------------------- -->
   <section class="wrap hero">
-    <h1 class="wordmark" aria-label="Maria's">
-      <span class="v1" aria-hidden="true">Maria&#8217;s</span>
-      <span class="v2" aria-hidden="true">Maria&#8217;s</span>
-      <span class="v3" aria-hidden="true">Maria&#8217;s</span>
-      <span class="v4" aria-hidden="true">Maria&#8217;s</span>
-      <span class="v5" aria-hidden="true">Maria&#8217;s</span>
+    <h1 class="wordmark" aria-label="Maria’s">
+      <span class="hand h1" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
+      <span class="hand h2" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
+      <span class="hand h3" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
+      <span class="hand h4" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
+      <span class="hand h5" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
+      <span class="hand h6" aria-hidden="true"><span class="g1">M</span><span class="g2">a</span><span class="g3">r</span><span class="g4">i</span><span class="g5">a</span><span class="g6">&#8217;</span><span class="g7">s</span></span>
     </h1>
     <p class="hero__sub">Since the 1950's, Maria's is one of Cape Town's oldest and most loved restaurants.</p>
     <a class="btn" href="tel:+27214613333" aria-label="Reserve a table by phone on 021 461 3333">
@@ -255,9 +288,10 @@
     window.addEventListener('scroll', tick, { passive: true });
   })();
 
-  /* The same name written five times by hand. One crossfade every 2600ms. */
+  /* The same name, written again and again. Hard cut every 520ms, no fade:
+     the flicker is the point, it should read as a hand redrawing the word. */
   (function () {
-    var hands = document.querySelectorAll('.wordmark span');
+    var hands = document.querySelectorAll('.wordmark .hand');
     if (hands.length < 2) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       hands[0].classList.add('is-on');
@@ -269,7 +303,7 @@
       hands[i].classList.remove('is-on');
       i = (i + 1) % hands.length;
       hands[i].classList.add('is-on');
-    }, 2600);
+    }, 520);
   })();
 </script>
 </body>
